@@ -44,7 +44,7 @@ class Transaction {
         
 }
 
-export class Client {
+class Client {
 
     constructor (private id: string) {}
     private transactions: Transaction[] = []
@@ -77,45 +77,44 @@ export class Client {
 
 export class clientControl {
     constructor(
-        public LoggedClients: any[] = [],
-        public index: number = 0
+        private LoggedClients: any[] = [],
         ){
         }
 
-        setIndex(id: string): number {
+        private setIndex(id: string): number {
             return this.LoggedClients.findIndex((el: {id: string}, index: number, array: any[]) => {
                 return el.id == id;
             })
         }
 
         clientTransactions(id: string) {
-            this.index = this.setIndex(id)
+            let index = this.setIndex(id)
 
-            if (this.index >=0) {
-                return this.LoggedClients[this.index].transactions
+            if (index >=0) {
+                return this.LoggedClients[index].transactions
             } else {
                 return 'ainda não existem depósitos para este cliente'
             }
         }
 
         clientFunds(id: string){
-            this.index = this.setIndex(id)
-            if(this.index < 0) {
+            let index = this.setIndex(id)
+            if(index < 0) {
                 return 'Este usuário não existe'
             }
-            return this.LoggedClients[this.index].funds()
+            return this.LoggedClients[index].funds()
         }
 
         clientCashin(id: string, value: number, description:string,
             payment: string, ccnumber: string, ccowner: string,
             ccexpire: string, cccvv: number)
             {
-            this.index = this.setIndex(id)
-            if (this.index < 0) {
+            let index = this.setIndex(id)
+            if (index < 0) {
                 this.LoggedClients.push(new Client(id))
-                this.index = this.setIndex(id)
+                index = this.setIndex(id)
             }
-            this.LoggedClients[this.index].cashIn(value, description,
+            this.LoggedClients[index].cashIn(value, description,
                 payment, ccnumber, ccowner,
                 ccexpire, cccvv)
         }
