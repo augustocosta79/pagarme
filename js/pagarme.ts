@@ -46,10 +46,11 @@ class Transaction {
 
 class Client {
 
-    constructor (private id: string) {}
+    constructor (private _id: string) {}
     private transactions: Transaction[] = []
     private available: number = 0
     private waiting: number = 0
+    get id(): string { return this._id }
 
     cashIn(value: number, description:string,
         payment: string, ccnumber: string, ccowner: string,
@@ -77,12 +78,12 @@ class Client {
 
 export class clientControl {
     constructor(
-        private LoggedClients: any[] = [],
+        private LoggedClients: Client[] = [],
         ){
         }
 
         private setIndex(id: string): number {
-            return this.LoggedClients.findIndex((el: {id: string}, index: number, array: any[]) => {
+            return this.LoggedClients.findIndex((el: Client, index: number, array: Client[]) => {
                 return el.id == id;
             })
         }
@@ -91,7 +92,7 @@ export class clientControl {
             let index = this.setIndex(id)
 
             if (index >=0) {
-                return this.LoggedClients[index].transactions
+                return this.LoggedClients[index].transactionList()
             } else {
                 return 'ainda não existem depósitos para este cliente'
             }
