@@ -55,7 +55,8 @@ class Client {
     cashIn(value: number, description:string,
         payment: string, ccnumber: string, ccowner: string,
         ccexpire: string, cccvv: number): void 
-        {const transacao = new Transaction(value, description, payment, ccnumber, ccowner, ccexpire, cccvv)
+    {
+        const transacao = new Transaction(value, description, payment, ccnumber, ccowner, ccexpire, cccvv)
         this.transactions.push(transacao)
         
         if (transacao.payStatus() == payStatus.paid) {
@@ -83,8 +84,8 @@ export class clientControl {
         }
 
         private setIndex(id: string): number {
-            return this.LoggedClients.findIndex((el: Client, index: number, array: Client[]) => {
-                return el.id == id;
+            return this.LoggedClients.findIndex((client: Client, index: number, array: Client[]) => {
+                return client.id == id;
             })
         }
 
