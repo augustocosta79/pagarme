@@ -78,9 +78,7 @@ class Client {
 }
 
 export class clientControl {
-    constructor(
-        ){
-        }
+
         private static LoggedClients: Client[] = []
 
         private static setIndex(id: string): number {
