@@ -79,44 +79,44 @@ class Client {
 
 export class clientControl {
     constructor(
-        private LoggedClients: Client[] = [],
         ){
         }
+        private static LoggedClients: Client[] = []
 
-        private setIndex(id: string): number {
-            return this.LoggedClients.findIndex((client: Client, index: number, array: Client[]) => {
+        private static setIndex(id: string): number {
+            return clientControl.LoggedClients.findIndex((client: Client, index: number, array: Client[]) => {
                 return client.id == id;
             })
         }
 
-        clientTransactions(id: string) {
-            let index = this.setIndex(id)
+        static clientTransactions(id: string) {
+            let index = clientControl.setIndex(id)
 
             if (index >=0) {
-                return this.LoggedClients[index].transactionList()
+                return clientControl.LoggedClients[index].transactionList()
             } else {
                 return 'ainda não existem depósitos para este cliente'
             }
         }
 
-        clientFunds(id: string){
-            let index = this.setIndex(id)
+        static clientFunds(id: string){
+            let index = clientControl.setIndex(id)
             if(index < 0) {
                 return 'Este usuário não existe'
             }
-            return this.LoggedClients[index].funds()
+            return clientControl.LoggedClients[index].funds()
         }
 
-        clientCashin(id: string, value: number, description:string,
+        static clientCashin(id: string, value: number, description:string,
             payment: string, ccnumber: string, ccowner: string,
             ccexpire: string, cccvv: number)
             {
-            let index = this.setIndex(id)
+            let index = clientControl.setIndex(id)
             if (index < 0) {
-                this.LoggedClients.push(new Client(id))
-                index = this.setIndex(id)
+                clientControl.LoggedClients.push(new Client(id))
+                index = clientControl.setIndex(id)
             }
-            this.LoggedClients[index].cashIn(value, description,
+            clientControl.LoggedClients[index].cashIn(value, description,
                 payment, ccnumber, ccowner,
                 ccexpire, cccvv)
         }
