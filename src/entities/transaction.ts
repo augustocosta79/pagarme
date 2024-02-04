@@ -9,5 +9,5 @@ export default class Transaction {
         private payMethod: cardType,
         private card: Card,
         )
-        {} 
+        {}
 }

@@ -2,10 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 class MemoryRepository {
     constructor() {
-        this.transactionList = [];
+        this.transactions = [];
     }
     saveTransaction(tx) {
-        this.transactionList.push(tx);
+        this.transactions.push(tx);
+    }
+    getTransactions() {
+        return this.transactions;
     }
 }
 exports.default = MemoryRepository;

@@ -3,9 +3,13 @@ import { TransactionRepository } from "./respository";
 
 export default class MemoryRepository {
     
-    transactionList: Transaction[] = []
+    transactions: Transaction[] = []
 
     saveTransaction(tx: Transaction){
-        this.transactionList.push(tx)
+        this.transactions.push(tx)
+    }
+
+    getTransactions(){
+        return this.transactions
     }
 }

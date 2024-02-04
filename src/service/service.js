@@ -7,11 +7,11 @@ class TransactionService {
     processTransaction(tx) {
         this.repository.saveTransaction(tx);
     }
-    createTransactions() {
-        return [];
+    getTransactions() {
+        return this.repository.getTransactions();
     }
-    createClientPayable() {
-        return Payable;
+    createClientPayable(tx, payment_date, fee) {
     }
     checkBalance() { }
 }
+exports.default = TransactionService;

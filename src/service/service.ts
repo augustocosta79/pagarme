@@ -1,7 +1,7 @@
 import Transaction from "../entities/transaction";
 import { TransactionRepository } from "../repository/respository";
 
-class TransactionService {
+export default class TransactionService {
 
     constructor(
         private repository: TransactionRepository
@@ -11,12 +11,11 @@ class TransactionService {
         this.repository.saveTransaction(tx)
     }
 
-    createTransactions(){
-        return []
+    getTransactions(){
+        return this.repository.getTransactions()
     }
 
-    createClientPayable(){
-        return Payable
+    createClientPayable(tx:Transaction, payment_date: string, fee: number){
     }
 
     checkBalance(){}
