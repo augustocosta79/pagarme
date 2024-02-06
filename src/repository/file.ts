@@ -17,14 +17,14 @@ export default class FileRepository extends MemoryRepository {
 
     saveTransaction(tx: Transaction): void {
 
-        let transactions: Transaction[] = []
+        let transactions: Transaction[]
         transactions = this.readFileIfExists()
         transactions.push(tx)
         fs.writeFileSync(this.transactionsFile, JSON.stringify(transactions))
     }
     
     getTransactions(): Transaction[] {
-        let transactions: Transaction[] = []
+        let transactions: Transaction[]
         transactions = this.readFileIfExists()
         return transactions
     }
