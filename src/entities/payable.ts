@@ -1,9 +1,10 @@
-class Payable {
-    constructor(
-        private status: string,
-        private payment_date: string,
-        private fee: number
-    ){}
+import { payableStatus } from "../service/service";
 
-    checkPayables(){}
+export default class Payable {
+    constructor(
+        private status: payableStatus,
+        private payment_date: Date,
+        private fee: number,
+        private value: number
+    ){}
 }

@@ -10,4 +10,13 @@ export default class Transaction {
         private card: Card,
         )
         {}
+
+        getTransactionData(){
+            return { 
+                value: this.value,
+                description: this.description,
+                payMethod: this.payMethod,
+                card: this.card,
+            }
+        }
 }
