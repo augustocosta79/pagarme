@@ -5,4 +5,5 @@ export interface TransactionRepository {
     saveTransaction(tx: Transaction): void
     getTransactions(): Transaction[]
     savePayable(payable: Payable): void
+    getPayables(): Payable[]
 }

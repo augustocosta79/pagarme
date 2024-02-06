@@ -14,25 +14,25 @@ export default class FileRepository extends MemoryRepository {
     }
     return [];
   }
-
   saveTransaction(tx: Transaction): void {
     let transactions: Transaction[];
     transactions = this.getFileData(this.transactionsFile);
     transactions.push(tx);
     fs.writeFileSync(this.transactionsFile, JSON.stringify(transactions));
   }
-
   getTransactions(): Transaction[] {
     let transactions: Transaction[];
     transactions = this.getFileData(this.transactionsFile);
     return transactions;
   }
-
   savePayable(payable: Payable): void {
-    let payables: Payable[];
-    payables = this.getFileData(this.payablesFile);
-    payables.push(payable);
-    fs.writeFileSync(this.transactionsFile, JSON.stringify(payables));
+    const payables = this.getFileData(this.payablesFile);
+    payables.push(payable.payableData());
+    fs.writeFileSync(this.payablesFile, JSON.stringify(payables));
     console.log(payables);
+  }
+  getPayables(): Payable[] {
+    const payables = this.getFileData(this.payablesFile);
+    return payables;
   }
 }
