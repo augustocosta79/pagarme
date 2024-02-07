@@ -1,6 +1,6 @@
 import Card from './card'
 
-export enum cardType { debit, credit }
+export enum cardType { debit = "debit", credit = "credit" }
 
 export default class Transaction {
     constructor(

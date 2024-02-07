@@ -27,9 +27,9 @@ export default class FileRepository extends MemoryRepository {
   }
   savePayable(payable: Payable): void {
     const payables = this.getFileData(this.payablesFile);
-    payables.push(payable.payableData());
+    payables.push(payable.data());
     fs.writeFileSync(this.payablesFile, JSON.stringify(payables));
-    console.log(payables);
+    // console.log(payables);
   }
   getPayables(): Payable[] {
     const payables = this.getFileData(this.payablesFile);
