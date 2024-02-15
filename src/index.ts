@@ -7,8 +7,8 @@ import Card from "./entities/card";
 
 const tx = new Transaction(450, 'Camisa do Flamengo', cardType.credit, new Card('12345678', 'Augusto', '04/29', '362'))
 
-const repository = new FileRepository()
-// const repository = new MemoryRepository()
+// const repository = new FileRepository()
+const repository = new MemoryRepository()
 
 const transactionService = new TransactionService(repository)
 
@@ -17,6 +17,9 @@ const transactionService = new TransactionService(repository)
 // console.log(transactionService.getTransactions())
 
 transactionService.createClientPayable(new Transaction(450, 'Camisa do Flamengo', cardType.credit, new Card('12345678', 'Augusto', '04/29', '362')))
+
+console.log(repository.getPayables())
+
 transactionService.createClientPayable(new Transaction(450, 'Camisa do Flamengo', cardType.debit, new Card('12345678', 'Augusto', '04/29', '362')))
 
 transactionService.checkBalance()
