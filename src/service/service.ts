@@ -1,6 +1,5 @@
 import Transaction from "../entities/transaction";
 import { TransactionRepository } from "../repository/respository";
-import { cardType } from "../entities/transaction";
 import Payable from "../entities/payable";
 
 
