@@ -23,4 +23,3 @@ console.log(repository.getPayables())
 transactionService.createClientPayable(new Transaction(450, 'Camisa do Flamengo', cardType.debit, new Card('12345678', 'Augusto', '04/29', '362')))
 
 transactionService.checkBalance()
-console.log(new Transaction(450, 'Camisa do Flamengo', cardType.debit, new Card('12345678', 'Augusto', '04/29', '362')))

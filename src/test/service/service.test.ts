@@ -27,3 +27,8 @@ test('Should create a client payable', ()=>{
         })
     ]))
 })
+
+test('Should return waiting and available client funds', ()=>{
+    transactionService.processTransaction(transaction)
+    expect(transactionService.checkBalance()).toEqual({ available: 0, waiting: 427.5 })
+})
