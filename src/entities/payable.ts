@@ -1,7 +1,7 @@
 import { payableStatus } from "../service/service";
 import { cardType } from "./transaction";
 
-enum feeValue {
+export enum feeValue {
     debit = 0.03,
     credit = 0.05,
 }

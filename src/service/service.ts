@@ -38,7 +38,7 @@ export default class TransactionService {
     });
     const totalAvailable = valuesAvailables.reduce((total, value)=>{return total + value}, 0);
     const totalWaitingFunds = valuesWaitingFunds.reduce((total, value)=>{return total + value}, 0);
-    console.log({available: totalAvailable, waiting: totalWaitingFunds});
+    // console.log({available: totalAvailable, waiting: totalWaitingFunds});
     return {available: totalAvailable, waiting: totalWaitingFunds}
   }
 }

@@ -2,3 +2,4 @@ node_modules
 draft.txt
 transactions.txt
 dist
+coverage

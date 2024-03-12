@@ -2,7 +2,6 @@ import TransactionService, { payableStatus } from "../../service/service";
 import MemoryRepository from "../../repository/memory";
 import Transaction, { cardType } from "../../entities/transaction";
 import Card from "../../entities/card";
-import Payable from "../../entities/payable";
 
 const repository = new MemoryRepository()
 const transactionService = new TransactionService(repository)

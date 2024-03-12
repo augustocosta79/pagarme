@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>18/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/17</span>
+                <span class='fraction'>16/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -121,39 +121,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Transaction from "../entities/transaction";
 import { TransactionRepository } from "../repository/respository";
-import { cardType } from "../entities/transaction";
 import Payable from "../entities/payable";
 &nbsp;
 &nbsp;
@@ -163,36 +162,37 @@ export enum payableStatus {
 }
 &nbsp;
 export default class TransactionService {
-<span class="fstat-no" title="function not covered" >  co</span>nstructor(private repository: TransactionRepository) {}
+  constructor(private repository: TransactionRepository) {}
 &nbsp;
-<span class="fstat-no" title="function not covered" >  pr</span>ocessTransaction(tx: Transaction) {
-<span class="cstat-no" title="statement not covered" >    this.repository.saveTransaction(tx);</span>
+  processTransaction(tx: Transaction) {
+    this.repository.saveTransaction(tx);
   }
-<span class="fstat-no" title="function not covered" >  ge</span>tTransactions() {
-<span class="cstat-no" title="statement not covered" >    return this.repository.getTransactions();</span>
+  getTransactions() {
+    return this.repository.getTransactions();
   }
-<span class="fstat-no" title="function not covered" >  cr</span>eateClientPayable(tx: Transaction) {
-    const { value, payMethod } = <span class="cstat-no" title="statement not covered" >tx.getTransactionData();    </span>
-    const payable = <span class="cstat-no" title="statement not covered" >new Payable(value, payMethod);</span>
-<span class="cstat-no" title="statement not covered" >    this.repository.savePayable(payable);</span>
+  createClientPayable(tx: Transaction) {
+    const { value, payMethod } = tx.getTransactionData();    
+    const payable = new Payable(value, payMethod);
+    this.repository.savePayable(payable);
   }
-<span class="fstat-no" title="function not covered" >  ch</span>eckBalance() {
-    const payables: any[] = <span class="cstat-no" title="statement not covered" >this.repository.getPayables();</span>
-    const valuesAvailables = <span class="cstat-no" title="statement not covered" >payables.map(<span class="fstat-no" title="function not covered" >(p</span>ayable) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (payable.status === payableStatus.paid) {</span>
+  checkBalance() {
+    const payables: any[] = this.repository.getPayables();
+    const valuesAvailables = payables.map((payable) =&gt; {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (payable.status === payableStatus.paid) {
 <span class="cstat-no" title="statement not covered" >        return payable.value;</span>
+      }
+      return 0;
+    });
+    const valuesWaitingFunds = payables.map((payable) =&gt; {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (payable.status === payableStatus.waiting_funds) {
+        return payable.value;
       }
 <span class="cstat-no" title="statement not covered" >      return 0;</span>
     });
-    const valuesWaitingFunds = <span class="cstat-no" title="statement not covered" >payables.map(<span class="fstat-no" title="function not covered" >(p</span>ayable) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (payable.status === payableStatus.waiting_funds) {</span>
-<span class="cstat-no" title="statement not covered" >        return payable.value;</span>
-      }
-<span class="cstat-no" title="statement not covered" >      return 0;</span>
-    });
-    const totalAvailable = <span class="cstat-no" title="statement not covered" >valuesAvailables.reduce(<span class="fstat-no" title="function not covered" >(t</span>otal, value)=&gt;{<span class="cstat-no" title="statement not covered" >return total + value}</span>, 0);</span>
-    const totalWaitingFunds = <span class="cstat-no" title="statement not covered" >valuesWaitingFunds.reduce(<span class="fstat-no" title="function not covered" >(t</span>otal, value)=&gt;{<span class="cstat-no" title="statement not covered" >return total + value}</span>, 0);</span>
-<span class="cstat-no" title="statement not covered" >    console.log({available: totalAvailable, waiting: totalWaitingFunds});</span>
+    const totalAvailable = valuesAvailables.reduce((total, value)=&gt;{return total + value}, 0);
+    const totalWaitingFunds = valuesWaitingFunds.reduce((total, value)=&gt;{return total + value}, 0);
+    console.log({available: totalAvailable, waiting: totalWaitingFunds});
+    return {available: totalAvailable, waiting: totalWaitingFunds}
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -202,7 +202,7 @@ export default class TransactionService {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-15T15:09:29.979Z
+                at 2024-03-12T14:48:53.123Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
