@@ -10,14 +10,14 @@ export default class MemoryRepository implements TransactionRepository {
     saveTransaction(tx: Transaction){
         this.transactions.push(tx)
     }
-    getTransactions(){
+    getTransactions(): Transaction[]{
         return this.transactions
     }
     savePayable(payable: Payable): void {
         this.payables.push(payable.data())
         // console.log(this.payables)
     }
-    getPayables(): Payable[] {
+    getPayables() {
         return this.payables
     }
 }
