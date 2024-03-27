@@ -9,5 +9,5 @@ test('Should create a Payable', ()=>{
     expect(payable.data().value).toBe(100 * (1- feeValue.debit))
     expect(payable.data().card).toBe(cardType.debit)
     expect(payable.data().status).toBe(payableStatus.paid)
-    expect(payable.data().paymentDate).toEqual(expect.any(Date))
+    expect(new Date(payable.data().paymentDate)).toEqual(expect.any(Date))
 })

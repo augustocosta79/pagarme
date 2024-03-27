@@ -9,7 +9,7 @@ export enum feeValue {
 export default class Payable {
     private fee: number
     private status: payableStatus
-    private paymentDate: Date
+    private paymentDate: string
     private payableValue: number
     constructor(
         private txValue: number,
@@ -18,11 +18,11 @@ export default class Payable {
         if(paymentType === cardType.debit) {
             this.fee = 1 - feeValue.debit
             this.status = payableStatus.paid
-            this.paymentDate = new Date(Date.now())            
+            this.paymentDate = new Date(Date.now()).toISOString()            
         } else {
             this.fee = 1 - feeValue.credit
             this.status = payableStatus.waiting_funds
-            this.paymentDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+            this.paymentDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
         }
         this.payableValue = txValue * this.fee
     }

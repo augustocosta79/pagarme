@@ -1,1 +1,1 @@
-[{"value":427.5,"status":"waiting funds","card":"credit","paymentDate":"2024-04-26T15:17:46.167Z"}]
+[{"value":436.5,"status":"paid","card":"debit","paymentDate":"2024-03-27T22:00:04.921Z"}]

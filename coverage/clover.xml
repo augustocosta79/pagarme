@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1711552667121" clover="3.2.0">
-  <project timestamp="1711552667121" name="All files">
-    <metrics statements="50" coveredstatements="48" conditionals="8" coveredconditionals="6" methods="23" coveredmethods="23" elements="81" coveredelements="77" complexity="0" loc="50" ncloc="50" packages="3" files="7" classes="7"/>
+<coverage generated="1711576805924" clover="3.2.0">
+  <project timestamp="1711576805924" name="All files">
+    <metrics statements="50" coveredstatements="50" conditionals="8" coveredconditionals="8" methods="23" coveredmethods="23" elements="81" coveredelements="81" complexity="0" loc="50" ncloc="50" packages="3" files="7" classes="7"/>
     <package name="entities">
       <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="5"/>
       <file name="card.ts" path="C:\Dados\Cursos Programação\Rafa\Pagar Me\src\entities\card.ts">
@@ -11,12 +11,12 @@
       <file name="payable.ts" path="C:\Dados\Cursos Programação\Rafa\Pagar Me\src\entities\payable.ts">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="18" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
         <line num="27" count="3" type="stmt"/>
         <line num="31" count="6" type="stmt"/>
       </file>
@@ -31,9 +31,9 @@
         <metrics statements="16" coveredstatements="16" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="5"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
-        <line num="11" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
+        <line num="11" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
         <line num="15" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
@@ -43,8 +43,8 @@
         <line num="29" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
       </file>
       <file name="memory.ts" path="C:\Dados\Cursos Programação\Rafa\Pagar Me\src\repository\memory.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
@@ -60,9 +60,9 @@
       </file>
     </package>
     <package name="service">
-      <metrics statements="17" coveredstatements="15" conditionals="4" coveredconditionals="2" methods="9" coveredmethods="9"/>
+      <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="9" coveredmethods="9"/>
       <file name="service.ts" path="C:\Dados\Cursos Programação\Rafa\Pagar Me\src\service\service.ts">
-        <metrics statements="17" coveredstatements="15" conditionals="4" coveredconditionals="2" methods="9" coveredmethods="9"/>
+        <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="9" coveredmethods="9"/>
         <line num="15" count="4" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
         <line num="21" count="2" type="stmt"/>
@@ -70,13 +70,13 @@
         <line num="23" count="2" type="stmt"/>
         <line num="26" count="2" type="stmt"/>
         <line num="27" count="2" type="stmt"/>
-        <line num="28" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="31" count="2" type="stmt"/>
+        <line num="28" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
         <line num="33" count="2" type="stmt"/>
-        <line num="34" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
+        <line num="34" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
         <line num="39" count="2" type="stmt"/>
         <line num="40" count="2" type="stmt"/>
         <line num="42" count="2" type="stmt"/>

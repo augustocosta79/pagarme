@@ -31,7 +31,7 @@ export default class FileRepository implements TransactionRepository {
     fs.writeFileSync(this.payablesFile, JSON.stringify(payables));
     // console.log(payables);
   }
-  getPayables(): Payable[] {
+  getPayables() {
     const payables = this.getFileData(this.payablesFile);
     return payables;
   }
