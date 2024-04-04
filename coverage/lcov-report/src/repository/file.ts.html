@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -106,36 +106,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Payable from "../entities/payable";
 import Transaction from "../entities/transaction";
@@ -143,36 +143,36 @@ import { TransactionRepository } from "./respository";
 import fs from "fs";
 &nbsp;
 export default class FileRepository implements TransactionRepository {
-  transactionsFile = <span class="cstat-no" title="statement not covered" >"transactions.txt";</span>
-  payablesFile = <span class="cstat-no" title="statement not covered" >"payables.txt";</span>
+  transactionsFile = "transactions.txt";
+  payablesFile = "payables.txt";
 &nbsp;
-<span class="fstat-no" title="function not covered" >  ge</span>tFileData(fileName: string) {
-<span class="cstat-no" title="statement not covered" >    if (fs.existsSync(fileName)) {</span>
-      const data = <span class="cstat-no" title="statement not covered" >fs.readFileSync(fileName).toString();</span>
-<span class="cstat-no" title="statement not covered" >      return JSON.parse(data);</span>
+  getFileData(fileName: string) {
+    if (fs.existsSync(fileName)) {
+      const data = fs.readFileSync(fileName).toString();
+      return JSON.parse(data);
     }
-<span class="cstat-no" title="statement not covered" >    return [];</span>
+    return [];
   }
-<span class="fstat-no" title="function not covered" >  sa</span>veTransaction(tx: Transaction): void {
+  saveTransaction(tx: Transaction): void {
     let transactions: Transaction[];
-<span class="cstat-no" title="statement not covered" >    transactions = this.getFileData(this.transactionsFile);</span>
-<span class="cstat-no" title="statement not covered" >    transactions.push(tx);</span>
-<span class="cstat-no" title="statement not covered" >    fs.writeFileSync(this.transactionsFile, JSON.stringify(transactions));</span>
+    transactions = this.getFileData(this.transactionsFile);
+    transactions.push(tx);
+    fs.writeFileSync(this.transactionsFile, JSON.stringify(transactions));
   }
-<span class="fstat-no" title="function not covered" >  ge</span>tTransactions(): Transaction[] {
+  getTransactions(): Transaction[] {
     let transactions: Transaction[];
-<span class="cstat-no" title="statement not covered" >    transactions = this.getFileData(this.transactionsFile);</span>
-<span class="cstat-no" title="statement not covered" >    return transactions;</span>
+    transactions = this.getFileData(this.transactionsFile);
+    return transactions;
   }
-<span class="fstat-no" title="function not covered" >  sa</span>vePayable(payable: Payable): void {
-    const payables = <span class="cstat-no" title="statement not covered" >this.getFileData(this.payablesFile);</span>
-<span class="cstat-no" title="statement not covered" >    payables.push(payable.data());</span>
-<span class="cstat-no" title="statement not covered" >    fs.writeFileSync(this.payablesFile, JSON.stringify(payables));</span>
+  savePayable(payable: Payable): void {
+    const payables = this.getFileData(this.payablesFile);
+    payables.push(payable.data());
+    fs.writeFileSync(this.payablesFile, JSON.stringify(payables));
     // console.log(payables);
   }
-<span class="fstat-no" title="function not covered" >  ge</span>tPayables(): Payable[] {
-    const payables = <span class="cstat-no" title="statement not covered" >this.getFileData(this.payablesFile);</span>
-<span class="cstat-no" title="statement not covered" >    return payables;</span>
+  getPayables() {
+    const payables = this.getFileData(this.payablesFile);
+    return payables;
   }
 }</pre></td></tr></table></pre>
 
@@ -181,7 +181,7 @@ export default class FileRepository implements TransactionRepository {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-12T14:48:53.123Z
+                at 2024-04-04T00:07:54.457Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
