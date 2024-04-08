@@ -25,24 +25,53 @@ describe("POST transactions/new-transaction", ()=>{
       expect(response.body.message).toBe("transaction process ok");
     });
   })
- })
- describe("Testing route with INVALID transaction value", ()=>{
-   test("Should respond with 422 status", async () => {
+
+  describe("Should respond with 422 status for INVALID transaction data", ()=>{
+    test("Invalid transaction VALUE", async () => {
+      const bodyData = [
+        {
+          value: "",
+          description: "Camisa do Flamengo",
+          payMethod: cardType.debit,
+          card: card,
+        },
+        {
+          value: -5,
+          description: "Camisa do Flamengo",
+          payMethod: cardType.debit,
+          card: card,
+        },
+        {
+          description: "Camisa do Flamengo",
+          payMethod: cardType.debit,
+          card: card,
+        },
+      ];
+      for (const transaction of bodyData) {
+        const response = await supertest
+          .agent(app)
+          .post("/transactions/new-transaction")
+          .send(transaction);
+        expect(response.status).toBe(422);
+        expect(response.body.message).toBe("invalid value");    
+      }
+    });
+    test("Invalid transaction DESCRIPTION", async () => {
      const bodyData = [
        {
-         value: "",
-         description: "Camisa do Flamengo",
+         value: 450,
+         description: "",
          payMethod: cardType.debit,
          card: card,
        },
        {
          value: -5,
-         description: "Camisa do Flamengo",
+         description: "C",
          payMethod: cardType.debit,
          card: card,
        },
        {
-         description: "Camisa do Flamengo",
+         value: 450,
          payMethod: cardType.debit,
          card: card,
        },
@@ -53,102 +82,78 @@ describe("POST transactions/new-transaction", ()=>{
          .post("/transactions/new-transaction")
          .send(transaction);
        expect(response.status).toBe(422);
-       expect(response.body.message).toBe("invalid value");    
+       expect(response.body.message).toBe("invalid description");    
      }
    });
+   test("Invalid transaction PAYMETHOD", async () => {
+     const bodyData = [
+       {
+         value: 450,
+         description: "Some funny description",
+         payMethod: "any",
+         card: card,
+       },
+       {
+         value: -5,
+         description: "Some funny description",
+         card: card,
+       },
+     ];
+     for (const transaction of bodyData) {
+       const response = await supertest
+         .agent(app)
+         .post("/transactions/new-transaction")
+         .send(transaction);
+       expect(response.status).toBe(422);
+       expect(response.body.message).toBe("invalid payment method");    
+     }
+   });
+   test("invalid transaction CARD", async () => {
+     const bodyData = [
+       {
+         value: 450,
+         description: "any description",
+         payMethod: cardType.debit,
+         card: { 
+           number:"12345678",  
+           owner: "Augusto",
+           expiration: "04/29", 
+           cvv:"362"
+         },
+       },
+       {
+         value: -5,
+         description: "any description",
+         payMethod: cardType.debit,
+         card: card,
+       },
+       {
+         value: 450,
+         payMethod: cardType.debit,
+         card: card,
+       },
+     ];
+     for (const transaction of bodyData) {
+       const response = await supertest
+         .agent(app)
+         .post("/transactions/new-transaction")
+         .send(transaction);
+       expect(response.status).toBe(422);
+       expect(response.body.message).toBe("invalid card");    
+     }
+   });
+  })
+  
  })
 
  describe("Testing route with INVALID transaction description", ()=>{
-  test("Should respond with 422 status", async () => {
-    const bodyData = [
-      {
-        value: 450,
-        description: "",
-        payMethod: cardType.debit,
-        card: card,
-      },
-      {
-        value: -5,
-        description: "C",
-        payMethod: cardType.debit,
-        card: card,
-      },
-      {
-        value: 450,
-        payMethod: cardType.debit,
-        card: card,
-      },
-    ];
-    for (const transaction of bodyData) {
-      const response = await supertest
-        .agent(app)
-        .post("/transactions/new-transaction")
-        .send(transaction);
-      expect(response.status).toBe(422);
-      expect(response.body.message).toBe("invalid description");    
-    }
-  });
+
 })
 
 describe("Testing route with INVALID transaction payMethod", ()=>{
-  test("Should respond with 422 status", async () => {
-    const bodyData = [
-      {
-        value: 450,
-        description: "Some funny description",
-        payMethod: "any",
-        card: card,
-      },
-      {
-        value: -5,
-        description: "Some funny description",
-        card: card,
-      },
-    ];
-    for (const transaction of bodyData) {
-      const response = await supertest
-        .agent(app)
-        .post("/transactions/new-transaction")
-        .send(transaction);
-      expect(response.status).toBe(422);
-      expect(response.body.message).toBe("invalid payment method");    
-    }
-  });
+
 })
 
 describe("Testing route with INVALID transaction card", ()=>{
-  test("Should respond with 422 status", async () => {
-    const bodyData = [
-      {
-        value: 450,
-        description: "any description",
-        payMethod: cardType.debit,
-        card: { 
-          number:"12345678",  
-          owner: "Augusto",
-          expiration: "04/29", 
-          cvv:"362"
-        },
-      },
-      {
-        value: -5,
-        description: "any description",
-        payMethod: cardType.debit,
-        card: card,
-      },
-      {
-        value: 450,
-        payMethod: cardType.debit,
-        card: card,
-      },
-    ];
-    for (const transaction of bodyData) {
-      const response = await supertest
-        .agent(app)
-        .post("/transactions/new-transaction")
-        .send(transaction);
-      expect(response.status).toBe(422);
-      expect(response.body.message).toBe("invalid card");    
-    }
-  });
+
 })
