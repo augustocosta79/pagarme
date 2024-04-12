@@ -10,4 +10,4 @@ export const transactionServiceRouter = Router()
 // transactionServiceRouter.get('/get', Quizz.getQuestions)
 
 // PROCESS TRANSACTIONS
-transactionServiceRouter.post('/new-transaction', validateTransaction(), ServiceController.newTransaction)
+transactionServiceRouter.post('/', validateTransaction(), ServiceController.newTransaction)

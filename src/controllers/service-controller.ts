@@ -11,13 +11,14 @@ export class ServiceController {
     static async newTransaction(req: Request, res: Response, next: NextFunction){
         const errors = validationResult(req)
         if(!errors.isEmpty()){
-            res.status(422).json({message: "invalid value"})
-            return           
+            return res.status(422).json({error: errors.array()})           
         }
         const {value, description, payMethod, card} = req.body
         const transaction = new Transaction(value, description, payMethod, card)
         transactionService.processTransaction(transaction)
-        res.status(201).json({message: "transaction process ok"})
+        return res.status(201).json({message: "transaction process ok"})
         
     }
 }
+
+// [{"location": "body", "msg": "Fill a valid value", "path": "value", "type": "field", "value": ""}, {"location": "body", "msg": "Fill a valid value", "path": "value", "type": "field", "value": ""}]

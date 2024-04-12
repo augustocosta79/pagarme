@@ -3,15 +3,15 @@ import app from "../app";
 import { cardType } from "../entities/transaction";
 import Card from "../entities/card";
 
-const card = new Card("12345678", "Augusto", "04/29", "362");
+const card = new Card("123456789012", "Augusto", "04/29", "362");
 
-describe("POST transactions/new-transaction", ()=>{
+describe("POST transactions", ()=>{
 
   describe("Testing route with VALID transaction data", ()=>{
     test("Should respond with a 201 status", async () => {
       const response = await supertest
         .agent(app)
-        .post("/transactions/new-transaction")
+        .post("/transactions")
         .send({
           value: 450,
           description: "Camisa do Flamengo",
@@ -48,12 +48,16 @@ describe("POST transactions/new-transaction", ()=>{
         },
       ];
       for (const transaction of bodyData) {
+        await supertest
+          .agent(app)
+          .post("/transactions")
+          .send(transaction)
         const response = await supertest
           .agent(app)
-          .post("/transactions/new-transaction")
+          .post("/transactions")
           .send(transaction);
         expect(response.status).toBe(422);
-        expect(response.body.message).toBe("invalid value");    
+        expect(response.body.error).toEqual(expect.arrayContaining([expect.objectContaining({"msg": "invalid value", "path": "value"})]))
       }
     });
     test("Invalid transaction DESCRIPTION", async () => {
@@ -65,7 +69,7 @@ describe("POST transactions/new-transaction", ()=>{
          card: card,
        },
        {
-         value: -5,
+         value: 5,
          description: "C",
          payMethod: cardType.debit,
          card: card,
@@ -79,10 +83,10 @@ describe("POST transactions/new-transaction", ()=>{
      for (const transaction of bodyData) {
        const response = await supertest
          .agent(app)
-         .post("/transactions/new-transaction")
+         .post("/transactions")
          .send(transaction);
        expect(response.status).toBe(422);
-       expect(response.body.message).toBe("invalid description");    
+       expect(response.body.error).toEqual(expect.arrayContaining([expect.objectContaining({"msg": "invalid description", "path": "description"})]));    
      }
    });
    test("Invalid transaction PAYMETHOD", async () => {
@@ -94,7 +98,7 @@ describe("POST transactions/new-transaction", ()=>{
          card: card,
        },
        {
-         value: -5,
+         value: 10,
          description: "Some funny description",
          card: card,
        },
@@ -102,58 +106,135 @@ describe("POST transactions/new-transaction", ()=>{
      for (const transaction of bodyData) {
        const response = await supertest
          .agent(app)
-         .post("/transactions/new-transaction")
+         .post("/transactions")
          .send(transaction);
        expect(response.status).toBe(422);
-       expect(response.body.message).toBe("invalid payment method");    
+       expect(response.body.error).toEqual(expect.arrayContaining([expect.objectContaining({"msg": "invalid payMethod", "path": "payMethod"})]));    
      }
    });
-   test("invalid transaction CARD", async () => {
-     const bodyData = [
-       {
-         value: 450,
-         description: "any description",
-         payMethod: cardType.debit,
-         card: { 
-           number:"12345678",  
-           owner: "Augusto",
-           expiration: "04/29", 
-           cvv:"362"
-         },
-       },
-       {
-         value: -5,
-         description: "any description",
-         payMethod: cardType.debit,
-         card: card,
-       },
-       {
-         value: 450,
-         payMethod: cardType.debit,
-         card: card,
-       },
-     ];
-     for (const transaction of bodyData) {
-       const response = await supertest
-         .agent(app)
-         .post("/transactions/new-transaction")
-         .send(transaction);
-       expect(response.status).toBe(422);
-       expect(response.body.message).toBe("invalid card");    
-     }
+   describe("invalid transaction CARD", () => {
+     test('invalid CARD NUMBER', async ()=>{
+      const bodyData = [
+        {
+          value: 450,
+          description: "any description",
+          payMethod: cardType.debit,
+          card: { 
+            number:"12345678",  
+            owner: "Augusto",
+            expiration: "04/29", 
+            cvv:"362"
+          },
+        },
+        {
+          value: 450,
+          description: "any description",
+          payMethod: cardType.debit,
+          card: {  
+            owner: "Augusto",
+            expiration: "04/29", 
+            cvv:"362"
+          },
+        },
+      ];
+      for (const transaction of bodyData) {
+        const response = await supertest
+          .agent(app)
+          .post("/transactions")
+          .send(transaction);
+        expect(response.status).toBe(422);
+        expect(response.body.error).toEqual(expect.arrayContaining([expect.objectContaining({"msg": "invalid card number", "path": "card.number"})]));    
+      }
+     })
+     test('invalid CARD OWNER', async ()=>{
+      const bodyData = [
+        {
+          value: 450,
+          description: "any description",
+          payMethod: cardType.debit,
+          card: { 
+            number:"123456789012",  
+            owner: " ",
+            expiration: "04/29", 
+            cvv:"362"
+          },
+        },
+        {
+          value: 450,
+          description: "any description",
+          payMethod: cardType.debit,
+          card: {
+            number:"123456789012",
+            expiration: "04/29", 
+            cvv:"362"
+          },
+        },
+        {
+          value: 450,
+          description: "any description",
+          payMethod: cardType.debit,
+          card: {
+            number:"123456789012",
+            owner: "a",
+            expiration: "04/29", 
+            cvv:"362"
+          },
+        },
+      ];
+      for (const transaction of bodyData) {
+        const response = await supertest
+          .agent(app)
+          .post("/transactions")
+          .send(transaction);
+        expect(response.status).toBe(422);
+        expect(response.body.error).toEqual(expect.arrayContaining([expect.objectContaining({"msg": "invalid card owner", "path": "card.owner"})]));    
+      }
+     })
+     test('invalid CARD EXPIRATION', async ()=>{
+      const bodyData = [
+        {
+          value: 450,
+          description: "any description",
+          payMethod: cardType.debit,
+          card: { 
+            number:"123456789012",  
+            owner: "Augusto",
+            expiration: "13/29", 
+            cvv:"362"
+          },
+        },        
+        {
+          value: 450,
+          description: "any description",
+          payMethod: cardType.debit,
+          card: { 
+            number:"123456789012",  
+            owner: "Augusto",
+            expiration: "", 
+            cvv:"362"
+          },
+        },
+        {
+          value: 450,
+          description: "any description",
+          payMethod: cardType.debit,
+          card: { 
+            number:"123456789012",  
+            owner: "Augusto", 
+            cvv:"362"
+          },
+        },
+      ];
+      for (const transaction of bodyData) {
+        const response = await supertest
+          .agent(app)
+          .post("/transactions")
+          .send(transaction);
+        expect(response.status).toBe(422);
+        expect(response.body.error).toEqual(expect.arrayContaining([expect.objectContaining({"msg": "invalid card expiration", "path": "card.expiration"})]));    
+      }
+     })
    });
   })
-  
+
  })
-
- describe("Testing route with INVALID transaction description", ()=>{
-
-})
-
-describe("Testing route with INVALID transaction payMethod", ()=>{
-
-})
-
-describe("Testing route with INVALID transaction card", ()=>{
-
-})
