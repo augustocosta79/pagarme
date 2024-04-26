@@ -4,3 +4,4 @@ transactions.txt
 dist
 coverage
 payables.txt
+client.rest

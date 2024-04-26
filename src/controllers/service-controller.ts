@@ -19,6 +19,15 @@ export class ServiceController {
         return res.status(201).json({message: "transaction process ok"})
         
     }
+
+    static async getTransactions(req: Request, res: Response, next: NextFunction){
+        const transactions = transactionService.getTransactions()
+        if(!transactions){
+            return res.status(404).json({error: "unable to get transactions"})
+        }
+
+        return res.status(200).json({transactions: transactions})
+    }
 }
 
 // [{"location": "body", "msg": "Fill a valid value", "path": "value", "type": "field", "value": ""}, {"location": "body", "msg": "Fill a valid value", "path": "value", "type": "field", "value": ""}]

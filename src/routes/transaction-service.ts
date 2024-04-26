@@ -11,3 +11,4 @@ export const transactionServiceRouter = Router()
 
 // PROCESS TRANSACTIONS
 transactionServiceRouter.post('/', validateTransaction(), ServiceController.newTransaction)
+transactionServiceRouter.get('/', ServiceController.getTransactions)
