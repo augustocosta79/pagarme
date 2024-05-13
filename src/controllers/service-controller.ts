@@ -11,7 +11,7 @@ export class ServiceController {
     static async newTransaction(req: Request, res: Response, next: NextFunction){
         const errors = validationResult(req)
         if(!errors.isEmpty()){
-            return res.status(422).json({error: errors.array()})           
+            return res.status(422).json({message: 'You should provide valid data',error: errors.array()})      
         }
         const {value, description, payMethod, card} = req.body
         const transaction = new Transaction(value, description, payMethod, card)

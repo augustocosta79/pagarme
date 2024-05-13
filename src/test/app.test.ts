@@ -1,14 +1,15 @@
-import supertest from "supertest";
+import request from "supertest";
 import app from "../app";
 import { cardType } from "../entities/transaction";
 import Card from "../entities/card";
+import 'express-async-errors'
 
 const card = new Card("123456789012", "Augusto", "04/29", "362");
 
 describe("POST transactions", () => {
   describe("Testing route with VALID transaction data", () => {
     test("Should respond with a 201 status", async () => {
-      const response = await supertest.agent(app).post("/transactions").send({
+      const response = await request(app).post("/transactions").send({
         value: 450,
         description: "Camisa do Flamengo",
         payMethod: cardType.debit,
@@ -44,16 +45,15 @@ describe("POST transactions", () => {
         },
       ];
       for (const transaction of bodyData) {
-        const response = await supertest
-          .agent(app)
-          .post("/transactions")
-          .send(transaction);
-        expect(response.status).toBe(422);
-        expect(response.body.error).toEqual(
-          expect.arrayContaining([
-            expect.objectContaining({ msg: "invalid value", path: "value" }),
-          ])
-        );
+        const response = await request(app)
+        .post("/transactions")
+        .send(transaction);
+
+        expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"))
+        expect(response.status).toBe(422)
+        expect(response.error).not.toBe(false)
+        expect(response.text).toContain('You should provide valid data')
+        expect(response.text).toContain('invalid value')
       }
     });
     test("Invalid transaction DESCRIPTION", async () => {
@@ -77,19 +77,16 @@ describe("POST transactions", () => {
         },
       ];
       for (const transaction of bodyData) {
-        const response = await supertest
-          .agent(app)
-          .post("/transactions")
-          .send(transaction);
-        expect(response.status).toBe(422);
-        expect(response.body.error).toEqual(
-          expect.arrayContaining([
-            expect.objectContaining({
-              msg: "invalid description",
-              path: "description",
-            }),
-          ])
-        );
+        const response = await request(app)
+        .post("/transactions")
+        .send(transaction);
+
+        expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"))
+        expect(response.status).toBe(422)
+        expect(response.error).not.toBe(false)
+        expect(response.text).toContain('You should provide valid data')
+        expect(response.text).toContain('invalid description')
+
       }
     });
     test("Invalid transaction PAYMETHOD", async () => {
@@ -107,21 +104,18 @@ describe("POST transactions", () => {
         },
       ];
       for (const transaction of bodyData) {
-        const response = await supertest
-          .agent(app)
-          .post("/transactions")
-          .send(transaction);
-        expect(response.status).toBe(422);
-        expect(response.body.error).toEqual(
-          expect.arrayContaining([
-            expect.objectContaining({
-              msg: "invalid payMethod",
-              path: "payMethod",
-            }),
-          ])
-        );
+        const response = await request(app)
+        .post("/transactions")
+        .send(transaction);
+
+        expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"))
+        expect(response.status).toBe(422)
+        expect(response.error).not.toBe(false)
+        expect(response.text).toContain('You should provide valid data')
+        expect(response.text).toContain("invalid payMethod")
+
       }
-    });
+});
     describe("invalid transaction CARD", () => {
       test("invalid CARD NUMBER", async () => {
         const bodyData = [
@@ -148,19 +142,15 @@ describe("POST transactions", () => {
           },
         ];
         for (const transaction of bodyData) {
-          const response = await supertest
-            .agent(app)
-            .post("/transactions")
-            .send(transaction);
-          expect(response.status).toBe(422);
-          expect(response.body.error).toEqual(
-            expect.arrayContaining([
-              expect.objectContaining({
-                msg: "invalid card number",
-                path: "card.number",
-              }),
-            ])
-          );
+          const response = await request(app)
+          .post("/transactions")
+          .send(transaction);
+  
+          expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"))
+          expect(response.status).toBe(422)
+          expect(response.error).not.toBe(false)
+          expect(response.text).toContain('You should provide valid data')
+          expect(response.text).toContain("invalid card number")
         }
       });
       test("invalid CARD OWNER", async () => {
@@ -199,19 +189,15 @@ describe("POST transactions", () => {
           },
         ];
         for (const transaction of bodyData) {
-          const response = await supertest
-            .agent(app)
-            .post("/transactions")
-            .send(transaction);
-          expect(response.status).toBe(422);
-          expect(response.body.error).toEqual(
-            expect.arrayContaining([
-              expect.objectContaining({
-                msg: "invalid card owner",
-                path: "card.owner",
-              }),
-            ])
-          );
+          const response = await request(app)
+          .post("/transactions")
+          .send(transaction);
+  
+          expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"))
+          expect(response.status).toBe(422)
+          expect(response.error).not.toBe(false)
+          expect(response.text).toContain('You should provide valid data')
+          expect(response.text).toContain("invalid card owner")
         }
       });
       test("invalid CARD EXPIRATION", async () => {
@@ -250,19 +236,15 @@ describe("POST transactions", () => {
           },
         ];
         for (const transaction of bodyData) {
-          const response = await supertest
-            .agent(app)
-            .post("/transactions")
-            .send(transaction);
-          expect(response.status).toBe(422);
-          expect(response.body.error).toEqual(
-            expect.arrayContaining([
-              expect.objectContaining({
-                msg: "invalid card expiration",
-                path: "card.expiration",
-              }),
-            ])
-          );
+          const response = await request(app)
+          .post("/transactions")
+          .send(transaction);
+  
+          expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"))
+          expect(response.status).toBe(422)
+          expect(response.error).not.toBe(false)
+          expect(response.text).toContain('You should provide valid data')
+          expect(response.text).toContain("invalid card expiration")
         }
       });
     });
@@ -271,25 +253,23 @@ describe("POST transactions", () => {
 
 describe("GET transactions", () => {
   test("Should respond with array containing Transaction and 200 status", async () => {
-    const response = await supertest.agent(app).get("/transactions");
+    const result = [
+      {
+        value: "450",
+        description: "Camisa do Flamengo",
+        payMethod: cardType.debit,
+        card: {
+          cvv: "362",
+          expiration: "04/29",
+          number: "****.****.****.9012",
+          owner: "Augusto",
+        },
+      },
+    ]
+    const response = await request(app).get("/transactions");
     expect(response.status).toBe(200);
-    console.log(typeof response.body)
-    expect(response.body).toEqual(
-      expect.objectContaining({
-        transactions: expect.arrayContaining([
-          {
-            value: "450",
-            description: "Camisa do Flamengo",
-            payMethod: cardType.debit,
-            card: {
-              cvv: "362",
-              expiration: "04/29",
-              number: "****.****.****.9012",
-              owner: "Augusto",
-            },
-          },
-        ]),
-      })
-    );
+    expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"));
+    expect(response.body).toEqual(expect.objectContaining({transactions: expect.arrayContaining(result)}));
+    
   });
 });
