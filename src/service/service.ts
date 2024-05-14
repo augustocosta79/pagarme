@@ -18,7 +18,7 @@ export default class TransactionService {
     return this.repository.getTransactions();
   }
   createClientPayable(tx: Transaction) {
-    const { value, payMethod } = tx.getTransactionData();    
+    const { value, payMethod } = tx;    
     const payable = new Payable(value, payMethod);
     this.repository.savePayable(payable);
   }

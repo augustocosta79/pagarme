@@ -30,7 +30,7 @@ test('Should create a transaction', ()=> {
 })
 
 test('Should get raw transaction data', ()=>{
-    expect(transaction.getTransactionData()).toEqual(
+    expect(transaction).toEqual(
         {
             value: 450,
             description: 'Camisa do Flamengo',
