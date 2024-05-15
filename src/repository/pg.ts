@@ -59,14 +59,3 @@ export default class pgRepository implements TransactionRepository {
       return payables
     }
 }
-
-
-
-// {
-  //   fee: 0.95,
-  //   payableValue: 95
-  //   paymentDate: '2024-06-14T17:19:24.177Z',
-  //   paymentType: 'credit',
-  //   status: 'waiting funds',
-  //   txValue: 100,
-// }

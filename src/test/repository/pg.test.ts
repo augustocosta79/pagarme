@@ -1,8 +1,7 @@
 import Card from "../../entities/card";
-import Payable, { feeValue } from "../../entities/payable";
+import Payable from "../../entities/payable";
 import Transaction, { cardType } from "../../entities/transaction"
 import pgRepository from "../../repository/pg"
-import { payableStatus } from "../../service/service";
 
 const card = new Card("123456789012", "Augusto", "04/29", "362");
 const transaction: Transaction = new Transaction(450, "Camisa do Flamengo", cardType.debit, card)
