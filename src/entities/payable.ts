@@ -12,7 +12,7 @@ export default class Payable {
     readonly paymentDate: string
     readonly payableValue: number
     constructor(
-        readonly txValue: number,
+        private txValue: number,
         readonly paymentType: cardType
     ){
         if(paymentType === cardType.debit) {

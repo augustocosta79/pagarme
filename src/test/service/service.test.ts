@@ -30,18 +30,23 @@ test('Should create a client payable', ()=>{
     expect(()=>transactionService.createClientPayable(transaction)).not.toThrow(Error)
 })
 
-test('Should return waiting and available client funds', ()=>{
-    getPayables.mockReturnValue([{
-        value: 10,
+test('Should return waiting and available client funds', async ()=>{
+    getPayables.mockResolvedValue([{
+        payableValue: 10,
         status: payableStatus.paid,
         card: cardType.debit,
         paymentDate: "any date string"            
     },
     {
-        value: 20,
+        payableValue: 20,
         status: payableStatus.waiting_funds,
         card: cardType.credit,
         paymentDate: "any date string"            
     }])
-    expect(transactionService.checkBalance()).toEqual({ available: 10, waiting: 20 })
+    try {
+        const balance = await transactionService.checkBalance()
+        expect(balance).toEqual({ available: 10, waiting: 20 })
+    } catch (error) {
+        expect(error).toBeUndefined()
+    }
 })

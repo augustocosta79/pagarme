@@ -23,8 +23,8 @@ export default class TransactionService {
     const payable = new Payable(value, payMethod);
     this.repository.savePayable(payable);
   }
-  checkBalance() {
-    const payables: Payable[] = this.repository.getPayables();
+  async checkBalance() {
+    const payables: Payable[] = await this.repository.getPayables();    
     const valuesAvailables = payables.map((payable) => {
       if (payable.status === payableStatus.paid) {
         return payable.payableValue;
@@ -33,13 +33,12 @@ export default class TransactionService {
     });
     const valuesWaitingFunds = payables.map((payable) => {
       if (payable.status === payableStatus.waiting_funds) {
-        return payable.value;
+        return payable.payableValue;
       }
       return 0;
     });
     const totalAvailable = valuesAvailables.reduce((total, value)=>{return total + value}, 0);
     const totalWaitingFunds = valuesWaitingFunds.reduce((total, value)=>{return total + value}, 0);
-    // console.log({available: totalAvailable, waiting: totalWaitingFunds});
     return {available: totalAvailable, waiting: totalWaitingFunds}
   }
 }

@@ -25,9 +25,8 @@ export default class pgRepository implements TransactionRepository {
     }
 
     async saveTransaction(tx: Transaction){
-      const transaction = tx
       try {
-        await db.query('INSERT INTO transactions (transaction) VALUES ($1)', [transaction])
+        await db.query('INSERT INTO transactions (transaction) VALUES ($1)', [tx])
       } catch (error) {
         throw new Error('could not process the transaction')
       }
@@ -42,10 +41,32 @@ export default class pgRepository implements TransactionRepository {
       }      
       return transactions
     }
-    // savePayable(payable: Payable): void {
-       
-    // }
-    // getPayables(): Payable[] {
-        
-    // }
+    async savePayable(payable: Payable): Promise<void> {
+      try {
+        await db.query('INSERT INTO payables (payable) VALUES ($1)', [payable])
+      } catch (error) {
+        throw new Error('could not save the payable')
+      }
+    }
+    async getPayables(): Promise<Payable[]> {
+      let payables: Payable[] = []
+      try {
+        const data = await db.query('SELECT * FROM payables')
+        payables = data.rows.map(row => row.payable)
+      } catch (error) {
+        throw new Error('error getting payables')
+      }      
+      return payables
+    }
 }
+
+
+
+// {
+  //   fee: 0.95,
+  //   payableValue: 95
+  //   paymentDate: '2024-06-14T17:19:24.177Z',
+  //   paymentType: 'credit',
+  //   status: 'waiting funds',
+  //   txValue: 100,
+// }
