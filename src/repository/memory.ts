@@ -5,19 +5,25 @@ import { TransactionRepository } from "./respository";
 export default class MemoryRepository implements TransactionRepository {
     
     transactions: Transaction[] = []
-    payables: any[] = []
+    payables: Payable[] = []
 
     saveTransaction(tx: Transaction){
         this.transactions.push(tx)
     }
-    getTransactions(): Transaction[]{
-        return this.transactions
+    getTransactions(): Promise<Transaction[]>{
+        const transactions: Promise<Transaction[]> = new Promise((resolve, reject)=>{
+            resolve(this.transactions)
+         })
+         return transactions
     }
     savePayable(payable: Payable): void {
-        this.payables.push(payable.data())
+        this.payables.push(payable)
         // console.log(this.payables)
     }
-    getPayables() {
-        return this.payables
+    getPayables(): Promise<Payable[]> {
+        const payables: Promise<Payable[]> = new Promise((reject, resolve)=>{
+            resolve(this.payables)
+        })
+        return payables
     }
 }

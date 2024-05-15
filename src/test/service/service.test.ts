@@ -17,9 +17,14 @@ test('Should not throw Error on Process Transaction', ()=>{
     expect(()=> transactionService.processTransaction(transaction)).not.toThrow(Error)
 })
 
-test('Should get transactions with transaction in it', ()=>{
-    getTransactions.mockReturnValue([transaction])    
-    expect(transactionService.getTransactions()).toEqual(expect.arrayContaining([transaction]))
+test('Should get transactions with transaction in it', async ()=>{
+    getTransactions.mockResolvedValue([transaction])
+    try {
+        const response = await transactionService.getTransactions()
+        expect(response).toEqual(expect.arrayContaining([transaction]))
+    } catch (error) {
+        expect(error).toBeUndefined()
+    }    
 })
 test('Should create a client payable', ()=>{  
     expect(()=>transactionService.createClientPayable(transaction)).not.toThrow(Error)

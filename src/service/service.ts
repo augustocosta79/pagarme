@@ -14,8 +14,9 @@ export default class TransactionService {
   processTransaction(tx: Transaction) {
     this.repository.saveTransaction(tx);
   }
-  getTransactions() {
-    return this.repository.getTransactions();
+  async getTransactions() {
+    const transactions = await this.repository.getTransactions();
+    return transactions
   }
   createClientPayable(tx: Transaction) {
     const { value, payMethod } = tx;    
@@ -23,10 +24,10 @@ export default class TransactionService {
     this.repository.savePayable(payable);
   }
   checkBalance() {
-    const payables: any[] = this.repository.getPayables();
+    const payables: Payable[] = this.repository.getPayables();
     const valuesAvailables = payables.map((payable) => {
       if (payable.status === payableStatus.paid) {
-        return payable.value;
+        return payable.payableValue;
       }
       return 0;
     });

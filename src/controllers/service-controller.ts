@@ -21,7 +21,7 @@ export class ServiceController {
     }
 
     static async getTransactions(req: Request, res: Response, next: NextFunction){
-        const transactions = transactionService.getTransactions()
+        const transactions = await transactionService.getTransactions()
         if(!transactions){
             return res.status(404).json({error: "unable to get transactions"})
         }

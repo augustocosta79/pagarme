@@ -7,13 +7,13 @@ export enum feeValue {
 }
 
 export default class Payable {
-    private fee: number
-    private status: payableStatus
-    private paymentDate: string
-    private payableValue: number
+    readonly fee: number
+    readonly status: payableStatus
+    readonly paymentDate: string
+    readonly payableValue: number
     constructor(
-        private txValue: number,
-        private paymentType: cardType
+        readonly txValue: number,
+        readonly paymentType: cardType
     ){
         if(paymentType === cardType.debit) {
             this.fee = 1 - feeValue.debit
@@ -25,14 +25,5 @@ export default class Payable {
             this.paymentDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
         }
         this.payableValue = txValue * this.fee
-    }
-
-    data(){
-        return {
-            value: this.payableValue,
-            status: this.status,
-            card: this.paymentType,
-            paymentDate: this.paymentDate            
-        }
     }
 }

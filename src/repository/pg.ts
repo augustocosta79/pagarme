@@ -39,7 +39,7 @@ export default class pgRepository implements TransactionRepository {
         transactions = data.rows.map(row => row.transaction)
       } catch (error) {
         throw new Error('error getting transactions')
-      }
+      }      
       return transactions
     }
     // savePayable(payable: Payable): void {

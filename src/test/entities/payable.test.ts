@@ -6,8 +6,8 @@ import { payableStatus } from "../../service/service";
 test('Should create a Payable', ()=>{
     const payable = new Payable(100, cardType.debit)
     expect(payable).toEqual(expect.any(Payable))
-    expect(payable.data().value).toBe(100 * (1- feeValue.debit))
-    expect(payable.data().card).toBe(cardType.debit)
-    expect(payable.data().status).toBe(payableStatus.paid)
-    expect(new Date(payable.data().paymentDate)).toEqual(expect.any(Date))
+    expect(payable.payableValue).toBe(100 * (1- feeValue.debit))
+    expect(payable.paymentType).toBe(cardType.debit)
+    expect(payable.status).toBe(payableStatus.paid)
+    expect(new Date(payable.paymentDate)).toEqual(expect.any(Date))
 })
