@@ -273,8 +273,25 @@ describe("GET transactions", () => {
       expect(response.body).toEqual(expect.objectContaining({transactions: expect.arrayContaining(result)}));
       
     } catch (error) {
-      
+      expect(error).toBeUndefined()
     }
     
   });
 });
+
+describe("GET payables", ()=>{
+  test('Should return waiting and available client funds w/ 200 status', async ()=>{
+    try {
+        const response = await request(app).get('/check-balance')
+        const balance = response.body
+        console.log(balance);
+        
+        expect(response.status).toBe(200)
+        expect(balance).toBeDefined()
+        expect(balance).toHaveProperty('available')
+        expect(balance).toHaveProperty('waiting')
+    } catch (error) {
+        expect(error).toBeUndefined()
+    }
+})
+})

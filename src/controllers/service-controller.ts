@@ -28,6 +28,17 @@ export class ServiceController {
 
         return res.status(200).json({transactions: transactions})
     }
+    static async checkBalance(req: Request, res: Response){
+        try {
+            const balance = await transactionService.checkBalance()
+            console.log(balance);            
+            return res.status(200).json(balance)
+        } catch (error) {
+            console.log({error: error});            
+            return res.status(500).json({error: error, message: 'could not find any payables'})
+        }
+        // res.status(200).json({available: 1, waiting: 1})
+    }
 }
 
 // [{"location": "body", "msg": "Fill a valid value", "path": "value", "type": "field", "value": ""}, {"location": "body", "msg": "Fill a valid value", "path": "value", "type": "field", "value": ""}]

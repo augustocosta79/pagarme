@@ -21,7 +21,7 @@ export default class MemoryRepository implements TransactionRepository {
         // console.log(this.payables)
     }
     getPayables(): Promise<Payable[]> {
-        const payables: Promise<Payable[]> = new Promise((reject, resolve)=>{
+        const payables: Promise<Payable[]> = new Promise((resolve, reject)=>{
             resolve(this.payables)
         })
         return payables
