@@ -10,14 +10,14 @@ const payable = new Payable(100, cardType.credit)
 const repository = new pgRepository()
 
 describe("Test pgRepository", ()=>{
-    test("Should process a Transaction without error", async ()=>{
+    test("Should SAVE a TRANSACTION without error", async ()=>{
         try {
             await repository.saveTransaction(transaction)
         } catch (error) {
             expect(error).toBeUndefined()
         }
     })
-    test("Should return a transaction list", async ()=>{
+    test("Should RETURN a TRANSACTION LIST", async ()=>{
         try {
             const transactions = await repository.getTransactions()
             expect(transactions).toEqual(expect.arrayContaining([transaction]))
@@ -25,14 +25,14 @@ describe("Test pgRepository", ()=>{
             expect(error).toBeUndefined()
         }
     })
-    test("Should save a payable w/out error", async()=>{
+    test("Should SAVE a PAYABLE w/out error", async()=>{
         try {
             await repository.savePayable(payable)
         } catch (error) {
             expect(error).toBeUndefined()
         }
     })
-    test("Should return a payable list", async ()=>{
+    test("Should RETURN a PAYABLE LIST", async ()=>{
         try {
           const payables = await repository.getPayables()          
           expect(payables).toEqual(expect.arrayContaining([payable]))  

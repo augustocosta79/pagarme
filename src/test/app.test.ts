@@ -2,29 +2,32 @@ import request from "supertest";
 import app from "../app";
 import { cardType } from "../entities/transaction";
 import Card from "../entities/card";
+import { transactionService } from "../controllers/service-controller";
 import 'express-async-errors'
 
 const card = new Card("123456789012", "Augusto", "04/29", "362");
 
-describe("POST transactions", () => {
-  describe("Testing route with VALID transaction data", () => {
+describe("POST => /transactions", () => {
+  describe("Send VALID transaction data", () => {
     test("Should respond with a 201 status", async () => {
-      const response = await request(app).post("/transactions").send({
+      const spyProcessTransaction = jest.spyOn(transactionService, 'processTransaction')
+      const transaction = {
         value: 450,
         description: "Camisa do Flamengo",
         payMethod: cardType.debit,
         card: card,
-      });
-      expect(response.status).toBe(201);
+      }
+      const response = await request(app).post("/transactions").send(transaction);
       expect(response.headers["content-type"]).toEqual(
         expect.stringContaining("json")
       );
+      expect(response.status).toBe(201);
+      expect(spyProcessTransaction).toHaveBeenCalledWith(transaction)
       expect(response.body.message).toBe("transaction process ok");
     });
   });
-
-  describe("Should respond with 422 status for INVALID transaction data", () => {
-    test("Invalid transaction VALUE", async () => {
+  describe("Send INVALID TRANSACTION", () => {
+    test("Should respond with 422 status for WRONG VALUE", async () => {
       const bodyData = [
         {
           value: "",
@@ -56,7 +59,7 @@ describe("POST transactions", () => {
         expect(response.text).toContain('invalid value')
       }
     });
-    test("Invalid transaction DESCRIPTION", async () => {
+    test("Should respond with 422 status for WRONG DESCRIPTION", async () => {
       const bodyData = [
         {
           value: 450,
@@ -89,7 +92,7 @@ describe("POST transactions", () => {
 
       }
     });
-    test("Invalid transaction PAYMETHOD", async () => {
+    test("Should respond with 422 status for WRONG PAYMETHOD", async () => {
       const bodyData = [
         {
           value: 450,
@@ -116,7 +119,7 @@ describe("POST transactions", () => {
 
       }
 });
-    describe("invalid transaction CARD", () => {
+    describe("Should respond with 422 status for WRONG CARD VALUES", () => {
       test("invalid CARD NUMBER", async () => {
         const bodyData = [
           {
@@ -251,11 +254,11 @@ describe("POST transactions", () => {
   });
 });
 
-describe("GET transactions", () => {
+describe("GET => /transactions", () => {
   test("Should respond with array containing Transaction and 200 status", async () => {
     const result = [
       {
-        value: "450",
+        value: 450,
         description: "Camisa do Flamengo",
         payMethod: cardType.debit,
         card: {
@@ -266,32 +269,35 @@ describe("GET transactions", () => {
         },
       },
     ]
+    const spyGetTransactions = jest.spyOn(transactionService, 'getTransactions')
+    spyGetTransactions.mockResolvedValue(result)
     try {
       const response = await request(app).get("/transactions");
-      expect(response.status).toBe(200);
       expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"));
-      expect(response.body).toEqual(expect.objectContaining({transactions: expect.arrayContaining(result)}));
-      
+      expect(response.status).toBe(200);
+      expect(spyGetTransactions).toHaveBeenCalledTimes(1)
+      expect(response.body).toEqual(expect.objectContaining({transactions: expect.arrayContaining(result)}));      
     } catch (error) {
       expect(error).toBeUndefined()
-    }
-    
+    }    
   });
 });
 
-describe("GET payables", ()=>{
-  test('Should return waiting and available client funds w/ 200 status', async ()=>{
+describe("GET => /check-balance", ()=>{
+  test('Should return 200 status and a BALANCE containing AVAILABLE and WAITING FUNDS', async ()=>{
+    const spyCheckBalance = jest.spyOn(transactionService, 'checkBalance')
+    spyCheckBalance.mockResolvedValue({ available: 10, waiting: 20 })
     try {
         const response = await request(app).get('/check-balance')
-        const balance = response.body
-        console.log(balance);
-        
+        const balance = response.body        
+        expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"));
         expect(response.status).toBe(200)
+        expect(spyCheckBalance).toHaveBeenCalledTimes(1)
         expect(balance).toBeDefined()
         expect(balance).toHaveProperty('available')
         expect(balance).toHaveProperty('waiting')
     } catch (error) {
         expect(error).toBeUndefined()
     }
-})
+  })
 })

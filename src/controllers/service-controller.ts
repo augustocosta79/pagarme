@@ -5,7 +5,7 @@ import { NextFunction, Request, Response } from "express"
 import { validationResult } from "express-validator";
 
 const repository = new MemoryRepository()
-const transactionService = new TransactionService(repository)
+export const transactionService = new TransactionService(repository)
 
 export class ServiceController {
     static async newTransaction(req: Request, res: Response, next: NextFunction){
@@ -14,31 +14,32 @@ export class ServiceController {
             return res.status(422).json({message: 'You should provide valid data',error: errors.array()})      
         }
         const {value, description, payMethod, card} = req.body
-        const transaction = new Transaction(value, description, payMethod, card)
-        transactionService.processTransaction(transaction)
-        return res.status(201).json({message: "transaction process ok"})
-        
+        const transaction = new Transaction(+value, description, payMethod, card)
+        try {
+            await transactionService.processTransaction(transaction)
+            return res.status(201).json({message: "transaction process ok"})
+        } catch (error) {
+            return res.status(500).json(new Error('Internal Server Error'))
+        }        
     }
-
     static async getTransactions(req: Request, res: Response, next: NextFunction){
-        const transactions = await transactionService.getTransactions()
+        let transactions
+        try {
+            transactions = await transactionService.getTransactions()
+        } catch (error) {
+            return res.status(500).json({error: error})
+        }
         if(!transactions){
             return res.status(404).json({error: "unable to get transactions"})
         }
-
         return res.status(200).json({transactions: transactions})
     }
     static async checkBalance(req: Request, res: Response){
         try {
-            const balance = await transactionService.checkBalance()
-            console.log(balance);            
+            const balance = await transactionService.checkBalance()           
             return res.status(200).json(balance)
-        } catch (error) {
-            console.log({error: error});            
-            return res.status(500).json({error: error, message: 'could not find any payables'})
+        } catch (error) {          
+            return res.status(500).json({error: error, message: 'Internal Server Error'})
         }
-        // res.status(200).json({available: 1, waiting: 1})
     }
 }
-
-// [{"location": "body", "msg": "Fill a valid value", "path": "value", "type": "field", "value": ""}, {"location": "body", "msg": "Fill a valid value", "path": "value", "type": "field", "value": ""}]
