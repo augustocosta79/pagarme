@@ -11,18 +11,18 @@ export enum payableStatus {
 export default class TransactionService {
   constructor(private repository: TransactionRepository) {}
 
-  processTransaction(tx: Transaction) {
-    this.repository.saveTransaction(tx);
-    this.createClientPayable(tx)
+  async processTransaction(tx: Transaction) {
+    await this.repository.saveTransaction(tx);
+    await this.createClientPayable(tx)
   }
   async getTransactions() {
     const transactions = await this.repository.getTransactions();
     return transactions
   }
-  createClientPayable(tx: Transaction) {
+  async createClientPayable(tx: Transaction) {
     const { value, payMethod } = tx;    
     const payable = new Payable(value, payMethod);
-    this.repository.savePayable(payable);
+    await this.repository.savePayable(payable);
   }
   async checkBalance() {
     const payables: Payable[] = await this.repository.getPayables();        

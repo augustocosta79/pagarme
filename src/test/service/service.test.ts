@@ -13,8 +13,12 @@ const transactionService = new TransactionService(repository)
 const card = new Card('12345678', 'Augusto','04/29', '362')
 const transaction = new Transaction(450, 'Camisa do Flamengo', cardType.credit, card)
 
-test('Should not throw Error on Process Transaction', ()=>{
-    expect(()=> transactionService.processTransaction(transaction)).not.toThrow(Error)
+test('Should not throw Error on Process Transaction', async ()=>{
+    try {
+        await transactionService.processTransaction(transaction)
+    } catch (error) {
+        expect(error).toBeUndefined()
+    }
 })
 
 test('Should get transactions with transaction in it', async ()=>{
@@ -26,8 +30,12 @@ test('Should get transactions with transaction in it', async ()=>{
         expect(error).toBeUndefined()
     }    
 })
-test('Should create a client payable', ()=>{  
-    expect(()=>transactionService.createClientPayable(transaction)).not.toThrow(Error)
+test('Should create a client payable', async ()=>{  
+    try {
+        await transactionService.createClientPayable(transaction)
+    } catch (error) {
+        expect(error).toBeUndefined()
+    }
 })
 
 test('Should return waiting and available client funds', async ()=>{

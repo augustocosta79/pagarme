@@ -7,23 +7,16 @@ export default class MemoryRepository implements TransactionRepository {
     transactions: Transaction[] = []
     payables: Payable[] = []
 
-    saveTransaction(tx: Transaction){
+    async saveTransaction(tx: Transaction): Promise<void> {
         this.transactions.push(tx)
     }
-    getTransactions(): Promise<Transaction[]>{
-        const transactions: Promise<Transaction[]> = new Promise((resolve, reject)=>{
-            resolve(this.transactions)
-         })
-         return transactions
+    async getTransactions(): Promise<Transaction[]>{
+         return this.transactions
     }
-    savePayable(payable: Payable): void {
+    async savePayable(payable: Payable): Promise<void> {
         this.payables.push(payable)
-        // console.log(this.payables)
     }
-    getPayables(): Promise<Payable[]> {
-        const payables: Promise<Payable[]> = new Promise((resolve, reject)=>{
-            resolve(this.payables)
-        })
-        return payables
+    async getPayables(): Promise<Payable[]> {
+        return this.payables
     }
 }
