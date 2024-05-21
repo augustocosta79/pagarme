@@ -1,7 +1,6 @@
 import TransactionService, { payableStatus } from "../../service/service";
 import Transaction, { cardType } from "../../entities/transaction";
 import Card from "../../entities/card";
-// import * as fs from 'node:fs';
 
 const saveTransaction = jest.fn()
 const getTransactions = jest.fn()

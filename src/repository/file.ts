@@ -14,24 +14,23 @@ export default class FileRepository implements TransactionRepository {
     }
     return [];
   }
-  saveTransaction(tx: Transaction): void {
+  async saveTransaction(tx: Transaction): Promise<void> {
     let transactions: Transaction[];
     transactions = this.getFileData(this.transactionsFile);
     transactions.push(tx);
     fs.writeFileSync(this.transactionsFile, JSON.stringify(transactions));
   }
-  getTransactions(): Transaction[] {
+  async getTransactions(): Promise<Transaction[]> {
     let transactions: Transaction[];
     transactions = this.getFileData(this.transactionsFile);
     return transactions;
   }
-  savePayable(payable: Payable): void {
+  async savePayable(payable: Payable): Promise<void> {
     const payables = this.getFileData(this.payablesFile);
-    payables.push(payable.data());
+    payables.push(payable);
     fs.writeFileSync(this.payablesFile, JSON.stringify(payables));
-    // console.log(payables);
   }
-  getPayables() {
+  async getPayables(): Promise<Payable[]> {
     const payables = this.getFileData(this.payablesFile);
     return payables;
   }

@@ -1,6 +1,5 @@
 import Transaction from "../../entities/transaction"
 import { cardType } from "../../entities/transaction"
-import Card from "../../entities/card"
 
 const card = {
     number: '****.****.****.5678',
